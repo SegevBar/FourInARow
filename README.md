@@ -10,7 +10,7 @@ Server- has 3 parts:
 - Threading- connecting to clients and creating a new game
 - While loop- getting moves from players and updating the game for all clients. Resets game when finished.
 
-Client- runs for each player locali, responsible for:
+Client- runs for each player locally, responsible for:
 - Uses Network class to recieve game board from server and to send players moves to server
 - redrawWindow - using pygame to draw the game window and board
 - main - defining the while loop of the game
