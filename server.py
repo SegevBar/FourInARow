@@ -46,7 +46,8 @@ def threaded_client(conn, p, gameId):
                     conn.sendall(pickle.dumps(game))  #sending the updated game to client
             else:
                 break
-        except:
+        except Exception as e:
+            print(str(e))
             break
 
     print("Lost connection")

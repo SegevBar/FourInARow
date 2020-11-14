@@ -88,7 +88,6 @@ def main():
     print("You are player", player)
 
     while run:  #main game loop
-        clock.tick(60)   #compute how many milliseconds have passed since the previous call.
         try:
             game = n.send("get")  #asking the server to send the game
         except:
@@ -96,6 +95,7 @@ def main():
             print("Lost connection with other player")
             break
 
+        clock.tick(60)  # compute how many milliseconds have passed since the previous call.
         redrawWindow(win, game, player)
 
         font = pygame.font.SysFont("comicsans", 90)
@@ -124,7 +124,6 @@ def main():
                     except:
                         run = False
                         print("Couldn't get game")
-
 
             if event.type == pygame.QUIT:
                 run = False

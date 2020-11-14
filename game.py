@@ -37,16 +37,16 @@ class Game:
 
     def winning(self, k):
         counter = 1
-        #check rows
+        print("check rows")
         for j in range(self.row):
             for i in range(self.colomn-k+1):
                 cur = self.board[j][i]
                 if cur != -1:
-                    for d in range(i + 1, i + k):
+                    for d in range(1,k):
                         if counter == k:
                             self.winner = cur
                             return self.winner
-                        elif self.board[j][d] == cur:
+                        elif self.board[j][i+d] == cur:
                             counter += 1
                         else:
                             counter = 1
@@ -54,16 +54,17 @@ class Game:
                         self.winner = cur
                         return self.winner
 
-        #check colomns
+        counter = 1
+        print("check colomns")
         for i in range(self.colomn):
             for j in range(self.row-k+1):
                 cur = self.board[j][i]
                 if cur != -1:
-                    for d in range(j + 1, j + k):
+                    for d in range(1, k):
                         if counter == k:
                             self.winner = cur
                             return self.winner
-                        elif self.board[d][i] == cur:
+                        elif self.board[j+d][i] == cur:
                             counter += 1
                         else:
                             counter = 1
@@ -71,16 +72,17 @@ class Game:
                         self.winner = cur
                         return self.winner
 
-        #check diag top right bottom left
-        for j in range(self.row-1, k-1, -1):
-            for i in range(self.colomn-k+1):
+        counter = 1
+        print("check diag top right bottom left")
+        for j in range(self.row-1, k-2, -1):
+            for i in range(self.colomn-k):
                 cur = self.board[j][i]
                 if cur != -1:
-                    for d in range(i + 1, i + k):
+                    for d in range(1,k):
                         if counter == k:
                             self.winner = cur
                             return self.winner
-                        elif self.board[j-d][d] == cur:
+                        elif self.board[j-d][i+d] == cur:
                             counter += 1
                         else:
                             counter = 1
@@ -88,12 +90,15 @@ class Game:
                         self.winner = cur
                         return self.winner
 
-        #check diag top left bottom right
-        for j in range(self.row-k+1):
-            for i in range(self.colomn-k+1):
+        counter = 1
+        print("check diag top left bottom right")
+        minWidth = min(self.row, self.colomn)
+        for j in range(minWidth-k):
+            for i in range(minWidth-k):
                 cur = self.board[j][i]
                 if cur != -1:
-                    for d in range(i + 1, i + k):
+                    for d in range(1, k):
+                        print("j+d=", j+d, "i+d=", i+d, "count=", counter)
                         if counter == k:
                             self.winner = cur
                             return self.winner
@@ -105,21 +110,20 @@ class Game:
                         self.winner = cur
                         return self.winner
 
-        #checking if the board is full and no winner
+        print("checking if the board is full and no winner")
         for i in range(self.colomn):
-            for j in range(self.row):
-                if self.board[j][i] == -1:
-                    return self.winner
-                elif i < self.colomn-2:
-                    continue
-                else:
-                    self.winner = 2
-                    return self.winner
+            if self.board[0][i] == -1:
+                break
+            elif i < self.colomn-1:
+                continue
+            else:
+                self.winner = 2
+                return self.winner
 
 
     def resetBoard(self):
         self.board = [[-1] * self.colomn for i in range(self.row)]
         self.currentPlayer = 0
-        self.id = id
-        self.ready = False
+        #self.id = id
+        #self.ready = False
         self.winner = -2
